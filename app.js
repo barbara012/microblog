@@ -5,7 +5,7 @@
 
 var express = require('express')
 	,	engine = require('ejs-locals')
-  , MongoStore = require('connect-mongo')
+  , MongoStore = require('connect-mongo')(express)
   , settings = require('./settings')
   , routes = require('./routes')
   , user = require('./routes/user')
@@ -23,12 +23,12 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-/*  app.use(express.session({
+  app.use(express.session({
     secret: settings.cookieSecret,
-    Store: new MongoStore({
+    store: new MongoStore({
       db: settings.db
     })
-  }));*/
+  }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
