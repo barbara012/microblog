@@ -34,7 +34,6 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(function(req, res, next){
     res.locals.user = req.session.user;
-    console.log(res.locals);
     var err = req.flash('error')
     res.locals.error = err.length?err:null;
     var success = req.flash('success');
