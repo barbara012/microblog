@@ -10,7 +10,8 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , flash = require('connect-flash');
 
 var app = express();
 app.engine('ejs', engine);
@@ -29,15 +30,24 @@ app.configure(function(){
       db: settings.db
     })
   }));
-  app.use(app.router);
+  app.use(flash());
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(function(req, res, next){
+    res.locals.user = req.session.user;
+    console.log(res.locals);
+    var err = req.flash('error')
+    res.locals.error = err.length?err:null;
+    var success = req.flash('success');
+    res.locals.success = success.length?success:null;
+    next();
+  });
+  app.use(app.router);
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 routes(app);
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'), app.settings.env);
 });

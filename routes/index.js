@@ -16,9 +16,9 @@ module.exports = function(app){
 
   app.post('/reg', function(req, res){
     //检验两次输入的结果是否一致
-    if(res.body("password-repeat") != req.body("password")){
+    if(req.body["password-repeat"] != req.body["password"]){
       req.flash("error", "两次输入的密码不一致");
-      res.redirect('/reg');
+      return res.redirect('/reg');
     }
     //生成口令的散列值
     var md5 = crypto.createHash("md5")

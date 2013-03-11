@@ -10,7 +10,8 @@
     "ejs": "*",
     "ejs-locals": "~1.0.2",
     "connect-mongo" : ">= 0.1.7",
-    "mongodb": ">= 0.9.9"
+    "mongodb": ">= 0.9.9",
+    "connect-flash":"*"
   }
 }
 

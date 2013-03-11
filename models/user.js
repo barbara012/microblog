@@ -25,9 +25,9 @@ User.prototype.save = function save(callback){
       }
 
       //为name属性添加索引
-      collection.ensureIndex('name', {unique:true});
+      collection.ensureIndex('name', {unique:true},function(){});
       //写入user文档
-      collection.insert(user, {safe:true}, function(err, user) {
+      collection.insert(user, function(err, user) {
         mongodb.close();
         callback(err);
       });
@@ -53,11 +53,11 @@ User.get = function get(username, callback) {
         if(doc){
           //封装文档为User对象
           var user = new User(doc);
-          callback(err, User);
+          callback(err, user);
         }else{
           callback(err);
         }
       });
     });
   });
-}
+};
