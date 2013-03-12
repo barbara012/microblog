@@ -28,9 +28,7 @@ User.prototype.save = function save(callback){
       //写入user文档
       collection.insert(user, {w:1}, function(err, user) {
         collection.ensureIndex({'name':1}, {unique:true, w:1, dropDups:true},function(err, indexName){
-          console.log(arguments.length);
         });
-        console.log(err);
         mongodb.close();
         callback(err);
       });
