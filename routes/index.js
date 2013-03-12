@@ -35,7 +35,7 @@ module.exports = function(app){
       if(user)
         err = "Username already exists.";
       if(err){
-        req.flash('err', err);
+        req.flash('error', err);
         return res.redirect('/reg');
       }
 
