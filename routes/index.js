@@ -111,7 +111,6 @@ module.exports = function(app){
           req.flash('error', err);
           return res.redirect('/');
         }
-        console.log(posts);
         res.render('user',{
           title:user.name,
           posts:posts
